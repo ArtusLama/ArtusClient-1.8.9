@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "verbose": true,
+  "minVersion": "0.6",
+  "package": "de.artus.artusmod.mixins",
+  "refmap": "mixins.artusmod.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "CustomMainMenu",
+    "HitDelayFix",
+    "SmoothSneakingMixin",
+    "splashScreen.DisableForgeSplashScreen",
+    "splashScreen.LoadCustomSplashScreen"
+  ]
+
+}

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "artusmod",
+  "name": "Artus Mod",
+  "description": "A Mod I coded for myself :D",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://artuslama.github.io",
+  "updateUrl": "",
+  "authorList": ["ArtusDev"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
