@@ -5,9 +5,12 @@ import de.artus.artusmod.ui.GuiConfiguration;
 import de.artus.artusmod.ui.gui.lib.Clickable;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.Hoverable;
+import de.artus.artusmod.ui.gui.lib.ScrollDetection;
+import de.artus.artusmod.utils.MouseHelper;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.gui.GuiScreen;
+import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,8 +21,16 @@ public abstract class AScreen extends GuiScreen {
     @Getter
     private List<Drawable> drawables = new ArrayList<>();
 
+
     @Override
-    public abstract void initGui();
+    public void initGui() {
+        getDrawables().clear();
+        init();
+    }
+
+    public abstract void init();
+
+
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float particalTicks) {
@@ -69,5 +80,19 @@ public abstract class AScreen extends GuiScreen {
     @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
+        int scroll = Mouse.getEventDWheel();
+        if (scroll != 0) {
+            int mouseX = MouseHelper.getMouseX();
+            int mouseY = MouseHelper.getMouseY();
+            for (Drawable drawable : getDrawables()) {
+                if (drawable instanceof ScrollDetection) {
+                    ScrollDetection scrollable = (ScrollDetection) drawable;
+                    if (scrollable.isInScrollArea(mouseX, mouseY)) {
+                        scrollable.onScroll(scroll);
+                    }
+                }
+            }
+        }
     }
+
 }

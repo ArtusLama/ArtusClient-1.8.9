@@ -1,12 +1,14 @@
 package de.artus.artusmod;
 
+import de.artus.artusmod.mods.DiscordRpcMod;
 import de.artus.artusmod.ui.GuiConfiguration;
 import de.artus.artusmod.mods.ModManager;
 import de.artus.artusmod.mods.fixes.FixHitDelayMod;
 import de.artus.artusmod.mods.fixes.FixMouseInputMod;
 import de.artus.artusmod.mods.fixes.SmoothSneakAnimationMod;
 import de.artus.artusmod.ui.gui.screens.splashScreen.CustomSplashScreen;
-import de.artus.artusmod.ui.gui.screens.ModMenuScreen;
+import de.artus.artusmod.ui.gui.screens.menus.ModMenuScreen;
+import de.artus.artusmod.utils.DiscordRpc;
 import de.artus.artusmod.utils.keybindings.KeybindHelper;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLModDisabledEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Logger;
@@ -40,6 +43,12 @@ public class ArtusMod {
     @Getter
     private static final int splashProgressSteps = 2;
 
+    @Getter
+    private static ModMenuScreen modMenuScreen = new ModMenuScreen();
+
+    @Getter
+    private static DiscordRpc discordRpc = new DiscordRpc();
+
     public ArtusMod() {
         instance = this;
     }
@@ -52,12 +61,14 @@ public class ArtusMod {
     @EventHandler
     public void init(FMLInitializationEvent event) {
 
+
         // - - - - - - - - - - - -   R E G I S T E R   M O D S   - - - - - - - - - - - - -
         getCustomSplashScreen().getSplashProgress().setProgress("Loading mods...");
         getModManager().registerMod(new FixHitDelayMod(), true);
         getModManager().registerMod(new FixMouseInputMod(), true);
 
         getModManager().registerMod(new SmoothSneakAnimationMod(), true);
+        getModManager().registerMod(new DiscordRpcMod(), true);
 
         getModManager().loadMods();
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -74,9 +85,14 @@ public class ArtusMod {
         // - - - - - - -  -   R E G I S T E R   K E Y   B I N D I N G S    - - - - - - - -
         KeybindHelper.init();
         KeybindHelper.registerKey(KeybindHelper.Keys.OPEN_MOD_MENU, () -> {
-            Minecraft.getMinecraft().displayGuiScreen(new ModMenuScreen());
+            Minecraft.getMinecraft().displayGuiScreen(getModMenuScreen());
         });
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    }
+
+    @EventHandler
+    public void exit(FMLModDisabledEvent event) {
+        getDiscordRpc().shutdown();
     }
 
 }

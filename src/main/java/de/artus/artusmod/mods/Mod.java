@@ -1,22 +1,37 @@
 package de.artus.artusmod.mods;
 
+import de.artus.artusmod.ArtusMod;
+import de.artus.artusmod.mods.config.ModsConfiguration;
 import lombok.Getter;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 
 public abstract class Mod {
 
-
-    public Mod(String name) {
-        this.name = name;
-    }
-    public Mod(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
     @Getter
-    private final String name;
+    private String name = "No name set";
     @Getter
     private String description = "No description set";
+
+    @Getter
+    private ResourceLocation icon;
+
+    public Mod(String id) {
+        boolean found = false;
+        for (ModsConfiguration.ModProps modProps : ModsConfiguration.getModsConfig().getMods()) {
+            if (modProps.id.equals(id)) {
+                this.name = modProps.getName();
+                this.description = modProps.getDescription();
+                this.icon = new ResourceLocation(ArtusMod.MODID + "/mods/icons/" + id + ".png");
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            ArtusMod.getLogger().warn("Mod with id " + id + " not found in " + ModsConfiguration.MODS_CONFIG_FILE + "!");
+        }
+    }
+
 
     public abstract void init();
     public abstract void onEnable();
@@ -27,10 +42,12 @@ public abstract class Mod {
     private boolean active = false;
     public void enableMod() {
         active = true;
+        MinecraftForge.EVENT_BUS.register(this);
         onEnable();
     }
     public void disableMod() {
         active = false;
+        MinecraftForge.EVENT_BUS.unregister(this);
         onDisable();
     }
     public void toggleMod() {
@@ -42,6 +59,9 @@ public abstract class Mod {
         if (active) enableMod();
         else disableMod();
     }
+
+    @Getter
+    public boolean alwaysActive = false;
 
 
 }

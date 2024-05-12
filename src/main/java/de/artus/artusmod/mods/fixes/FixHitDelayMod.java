@@ -6,7 +6,7 @@ public class FixHitDelayMod extends Mod {
 
 
     public FixHitDelayMod() {
-        super("Hit delay fix", "Removes the hit delay in the game");
+        super("fixhitdelay");
     }
 
     @Override

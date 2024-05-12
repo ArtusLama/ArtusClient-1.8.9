@@ -1,11 +1,7 @@
-package de.artus.artusmod.ui.gui.screens.mainMenu;
+package de.artus.artusmod.ui.gui.screens.menus;
 
 
-import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.components.ExitButton;
-import de.artus.artusmod.ui.gui.lib.containers.ListContainer;
-import de.artus.artusmod.ui.gui.lib.containers.ListDirection;
-import de.artus.artusmod.ui.gui.lib.interactive.HoverableRoundedRect;
 import de.artus.artusmod.ui.gui.lib.interactive.RoundedButton;
 import de.artus.artusmod.ui.gui.screens.AScreen;
 import net.minecraft.client.Minecraft;
@@ -17,15 +13,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class MainMenuScreen extends AScreen {
 
 
     @Override
-    public void initGui() {
+    public void init() {
         getDrawables().clear();
 
         int buttonWidth = 175;
@@ -55,17 +48,6 @@ public class MainMenuScreen extends AScreen {
             if (mouseButton == 0)
                 Minecraft.getMinecraft().shutdown();
         }));
-
-        List<Drawable> listItems = new ArrayList<>();
-        listItems.add(new HoverableRoundedRect(0, 0, 30, 20, 5).setBackgroundColor(getGuiConfiguration().getTheme().getPrimaryColor()));
-        listItems.add(new HoverableRoundedRect(0, 0, 30, 20, 4));
-        listItems.add(new HoverableRoundedRect(0, 0, 30, 20, 8).setBackgroundColor(getGuiConfiguration().getTheme().getPrimaryColor()));
-        listItems.add(new HoverableRoundedRect(0, 0, 30, 20, 5));
-        listItems.add(new HoverableRoundedRect(0, 0, 30, 20, 2).setBackgroundColor(getGuiConfiguration().getTheme().getPrimaryColor()));
-        listItems.add(new HoverableRoundedRect(0, 0, 30, 20, 1).setBackgroundColor(getGuiConfiguration().getTheme().getPrimaryColor()));
-        ListContainer listContainer = new ListContainer(10, 10, this.width / 2, 50, listItems);
-        listContainer.setListDirection(ListDirection.HORIZONTAL);
-        getDrawables().add(listContainer);
     }
 
 

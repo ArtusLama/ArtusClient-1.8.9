@@ -6,7 +6,7 @@ public class SmoothSneakAnimationMod extends Mod {
 
 
     public SmoothSneakAnimationMod() {
-        super("Smooth Sneak Animation", "Makes the sneak animation smoother :D");
+        super("smoothsneak");
     }
 
     @Override

@@ -3,6 +3,7 @@ package de.artus.artusmod.ui.gui.lib.containers;
 import de.artus.artusmod.ui.gui.lib.Clickable;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.Hoverable;
+import de.artus.artusmod.utils.ScissorHelper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,9 +18,12 @@ public class ListContainer extends Drawable implements Clickable, Hoverable {
 
     @Getter @Setter
     private int padding = 10;
-
     @Getter @Setter
-    private AlignItems alignItems = AlignItems.START;
+    private int baseXOffset = 0;
+    @Getter @Setter
+    private int baseYOffset = 0;
+
+
     @Getter @Setter
     private ListDirection listDirection = ListDirection.VERTICAL;
 
@@ -34,20 +38,20 @@ public class ListContainer extends Drawable implements Clickable, Hoverable {
 
     @Override
     public void draw(int mouseX, int mouseY) {
-        //GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        //GL11.glScissor(getX(), getY(), getWidth(), getHeight());
+        ScissorHelper.startScissor(getX(), getY(), getWidth(), getHeight());
 
         int startX = getX();
         int startY = getY();
         int xOffset = getListDirection() == ListDirection.REVERSE_HORIZONTAL ? getWidth() : 0;
-        int yOffset = getListDirection() == ListDirection.REVERSE_VERTICAL ? getWidth() : 0;
+        int yOffset = getListDirection() == ListDirection.REVERSE_VERTICAL ? getHeight() : 0;
         int xDir = getListDirection() == ListDirection.HORIZONTAL ? 1 : (getListDirection() == ListDirection.REVERSE_HORIZONTAL ? -1 : 0);
         int yDir = getListDirection() == ListDirection.VERTICAL ? 1 : (getListDirection() == ListDirection.REVERSE_VERTICAL ? -1 : 0);;
 
 
         for (Drawable item : getItems()) {
-            item.setX(startX + xOffset + (getListDirection() == ListDirection.REVERSE_HORIZONTAL ? -item.getWidth() : 0));
-            item.setY(startY + yOffset + (getListDirection() == ListDirection.REVERSE_VERTICAL ? -item.getWidth() : 0));
+            item.setX(getBaseXOffset() + startX + xOffset + (getListDirection() == ListDirection.REVERSE_HORIZONTAL ? -item.getWidth() : 0));
+            item.setY(getBaseYOffset() + startY + yOffset + (getListDirection() == ListDirection.REVERSE_VERTICAL ? -item.getHeight() : 0));
+
             item.draw(mouseX, mouseY);
 
             if (getListDirection() == ListDirection.HORIZONTAL || getListDirection() == ListDirection.REVERSE_HORIZONTAL) {
@@ -57,7 +61,7 @@ public class ListContainer extends Drawable implements Clickable, Hoverable {
             }
         }
 
-        //GL11.glDisable(GL11.GL_SCISSOR_TEST);
+        ScissorHelper.stopScissor();
     }
 
 
@@ -66,7 +70,7 @@ public class ListContainer extends Drawable implements Clickable, Hoverable {
         for (Drawable item : getItems()) {
             if (item instanceof Clickable) {
                 Clickable clickable = (Clickable) item;
-                if (clickable.isHovered(getX(), getY())) {
+                if (clickable.isHovered(mouseX, mouseY)) {
                     clickable.onClicked(mouseX, mouseY, mouseButton);
                 }
             }

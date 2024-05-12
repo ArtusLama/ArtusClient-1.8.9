@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class FixMouseInputMod extends Mod {
 
     public FixMouseInputMod() {
-        super("Mouse Input Fix", "Removes the weird mouse acceleration in the game");
+        super("fixmouseinput");
     }
 
 

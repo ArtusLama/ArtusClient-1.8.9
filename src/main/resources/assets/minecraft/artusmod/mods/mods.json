@@ -1,0 +1,29 @@
+{
+  "mods": [
+    {
+      "id": "clientmod",
+      "name": "Client Settings",
+      "description": "Settings for the client"
+    },
+    {
+      "id": "fixhitdelay",
+      "name": "Fix Hit Delay",
+      "description": "Fixes a bug from minecraft 1.8 where the hit delay is mot working properly."
+    },
+    {
+      "id": "fixmouseinput",
+      "name": "Fix Mouse Acceleration",
+      "description": "Removes the mouse acceleration from minecraft 1.8 for a smoother experience."
+    },
+    {
+      "id": "smoothsneak",
+      "name": "Smooth Sneaking",
+      "description": "Adds a smooth sneak animation :D"
+    },
+    {
+      "id": "discordrpc",
+      "name": "Discord RPC",
+      "description": "Shows what you are currently doing on discord."
+    }
+  ]
+}
