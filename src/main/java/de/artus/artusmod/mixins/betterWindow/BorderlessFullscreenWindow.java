@@ -20,8 +20,6 @@ public abstract class BorderlessFullscreenWindow {
 
     @Getter @Setter
     private boolean lastFullscreen = false;
-    @Getter @Setter
-    private int[] lastWindowLocation = new int[2];
 
 
     @Inject(method = "toggleFullscreen", at = @At("RETURN"))
@@ -43,19 +41,20 @@ public abstract class BorderlessFullscreenWindow {
 
 
     private void fix(boolean fullscreen) {
-        if (getLastWindowLocation().length != 2) setLastWindowLocation(new int[]{Display.getX(), Display.getY()});
         try {
             if (fullscreen) {
                 System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
                 Display.setDisplayMode(Display.getDesktopDisplayMode());
-                setLastWindowLocation(new int[]{Display.getX(), Display.getY()});
                 Display.setLocation(0, 0);
                 Display.setFullscreen(false);
                 Display.setResizable(false);
             } else {
                 System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
-                Display.setLocation(getLastWindowLocation()[0], getLastWindowLocation()[1]);
-                Display.setDisplayMode(new DisplayMode(Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight));
+                DisplayMode desktop = Display.getDesktopDisplayMode();
+                int width = Minecraft.getMinecraft().displayWidth;
+                int height = Minecraft.getMinecraft().displayHeight;
+                Display.setLocation(desktop.getWidth() / 2 - width / 2, desktop.getHeight() / 2 - height / 2);
+                Display.setDisplayMode(new DisplayMode(width, height));
                 Display.setResizable(true);
             }
         }
