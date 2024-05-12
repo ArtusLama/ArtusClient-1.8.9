@@ -1,4 +1,4 @@
-package de.artus.artusmod.utils;
+package de.artus.artusmod.utils.render;
 
 public class ColorUtil {
 

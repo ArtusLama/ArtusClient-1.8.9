@@ -3,7 +3,7 @@ package de.artus.artusmod.ui.gui.lib.containers;
 import de.artus.artusmod.ui.gui.lib.Clickable;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.Hoverable;
-import de.artus.artusmod.utils.ScissorHelper;
+import de.artus.artusmod.utils.render.ScissorHelper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +38,7 @@ public class ListContainer extends Drawable implements Clickable, Hoverable {
 
     @Override
     public void draw(int mouseX, int mouseY) {
-        ScissorHelper.startScissor(getX(), getY(), getWidth(), getHeight());
+        startClipping();
 
         int startX = getX();
         int startY = getY();
@@ -61,6 +61,13 @@ public class ListContainer extends Drawable implements Clickable, Hoverable {
             }
         }
 
+        stopClipping();
+    }
+
+    public void startClipping() {
+        ScissorHelper.startScissor(getX(), getY(), getWidth(), getHeight());
+    }
+    public void stopClipping() {
         ScissorHelper.stopScissor();
     }
 

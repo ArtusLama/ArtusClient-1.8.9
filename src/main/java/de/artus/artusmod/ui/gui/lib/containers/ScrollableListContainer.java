@@ -2,7 +2,7 @@ package de.artus.artusmod.ui.gui.lib.containers;
 
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.ScrollDetection;
-import de.artus.artusmod.utils.SmoothScrollingThread;
+import de.artus.artusmod.utils.render.SmoothScrollingThread;
 import lombok.Getter;
 import lombok.Setter;
 

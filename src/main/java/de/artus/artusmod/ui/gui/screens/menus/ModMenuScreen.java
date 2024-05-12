@@ -7,14 +7,12 @@ import de.artus.artusmod.mods.Mod;
 import de.artus.artusmod.ui.gui.lib.components.mods.ModMenuMod;
 import de.artus.artusmod.ui.gui.lib.components.mods.ModMenuModsList;
 import de.artus.artusmod.ui.gui.lib.components.mods.ModMenuTopBar;
-import de.artus.artusmod.ui.gui.lib.containers.ListDirection;
-import de.artus.artusmod.ui.gui.lib.containers.ScrollableListContainer;
+import de.artus.artusmod.ui.gui.lib.components.mods.modInfo.ModWindow;
 import de.artus.artusmod.ui.gui.lib.shapes.RoundedRectShape;
 import de.artus.artusmod.ui.gui.screens.AScreen;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.stream.Collectors;
 
 
 public class ModMenuScreen extends AScreen {
@@ -22,6 +20,11 @@ public class ModMenuScreen extends AScreen {
 
     @Getter @Setter
     private Mod selectedMod;
+
+    @Getter @Setter
+    private ModWindow modWindow;
+    @Getter @Setter
+    private RoundedRectShape modWindowBg;
 
 
     @Override
@@ -35,10 +38,17 @@ public class ModMenuScreen extends AScreen {
         int modItemSize = this.height / 9;
 
         int topBottomPadding = this.height / 8;
+        int modWindowPadding = 8;
 
         getDrawables().add(new ModMenuModsList(center - modSettingsScreenWidth / 2 + bigPadding - modItemSize, topBottomPadding, modItemSize, this.height - topBottomPadding * 2, padding, modItemSize));
         getDrawables().add(new ModMenuTopBar(center - modSettingsScreenWidth / 2 + modItemSize - bigPadding, topBottomPadding, modSettingsScreenWidth, modItemSize, 6));
-        getDrawables().add(new RoundedRectShape(center - modSettingsScreenWidth / 2 + modItemSize - bigPadding, topBottomPadding + modItemSize + padding, modSettingsScreenWidth, this.height - topBottomPadding * 2 - modItemSize - padding, 6));
+
+        RoundedRectShape modWindowBg = new RoundedRectShape(center - modSettingsScreenWidth / 2 + modItemSize - bigPadding, topBottomPadding + modItemSize + padding, modSettingsScreenWidth, this.height - topBottomPadding * 2 - modItemSize - padding, 6);
+        getDrawables().add(modWindowBg);
+        setModWindowBg(modWindowBg);
+        setModWindow(new ModWindow(modWindowBg.getX() + modWindowPadding, modWindowBg.getY() + modWindowPadding, modWindowBg.getWidth() - modWindowPadding * 2, modWindowBg.getHeight() - modWindowPadding * 2, getSelectedMod()));
+        getDrawables().add(getModWindow());
+
     }
 
     @Override
@@ -47,6 +57,11 @@ public class ModMenuScreen extends AScreen {
     }
 
     public void openModScreen(Mod mod) {
+        ModWindow oldModWindow = getModWindow();
+        setModWindow(new ModWindow(oldModWindow.getX(), oldModWindow.getY(), oldModWindow.getWidth(), oldModWindow.getHeight(), mod));
+        getDrawables().removeIf(d -> d instanceof ModWindow);
+        getDrawables().add(getModWindow());
+
         setSelectedMod(mod);
     }
 }

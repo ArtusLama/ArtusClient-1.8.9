@@ -1,6 +1,7 @@
-package de.artus.artusmod.utils;
+package de.artus.artusmod.utils.render;
 
 import de.artus.artusmod.ui.gui.lib.ScrollDetection;
+import de.artus.artusmod.utils.ParametrizedFunction;
 import lombok.Getter;
 import lombok.Setter;
 

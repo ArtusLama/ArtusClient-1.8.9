@@ -1,7 +1,6 @@
 package de.artus.artusmod.ui.gui.screens.splashScreen;
 
 import de.artus.artusmod.ArtusMod;
-import de.artus.artusmod.utils.ColorUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;

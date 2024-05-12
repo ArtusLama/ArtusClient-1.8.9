@@ -1,4 +1,4 @@
-package de.artus.artusmod.utils;
+package de.artus.artusmod.utils.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

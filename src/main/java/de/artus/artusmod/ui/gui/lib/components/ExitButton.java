@@ -2,7 +2,7 @@ package de.artus.artusmod.ui.gui.lib.components;
 
 import de.artus.artusmod.ui.gui.lib.Clickable;
 import de.artus.artusmod.ui.gui.lib.interactive.RoundedButton;
-import de.artus.artusmod.utils.ColorUtil;
+import de.artus.artusmod.utils.render.ColorUtil;
 
 public class ExitButton extends RoundedButton implements Clickable {
 

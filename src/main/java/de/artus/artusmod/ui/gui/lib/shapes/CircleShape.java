@@ -1,7 +1,7 @@
 package de.artus.artusmod.ui.gui.lib.shapes;
 
 import de.artus.artusmod.ui.gui.lib.BackgroundDrawable;
-import de.artus.artusmod.utils.ColorUtil;
+import de.artus.artusmod.utils.render.ColorUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

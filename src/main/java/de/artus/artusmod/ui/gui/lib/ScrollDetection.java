@@ -1,6 +1,6 @@
 package de.artus.artusmod.ui.gui.lib;
 
-import de.artus.artusmod.utils.SmoothScrollingThread;
+import de.artus.artusmod.utils.render.SmoothScrollingThread;
 
 public interface ScrollDetection {
 

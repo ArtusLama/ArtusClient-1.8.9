@@ -2,7 +2,7 @@ package de.artus.artusmod.ui.gui.lib.interactive;
 
 import de.artus.artusmod.ui.gui.lib.Hoverable;
 import de.artus.artusmod.ui.gui.lib.shapes.CircleShape;
-import de.artus.artusmod.utils.ColorUtil;
+import de.artus.artusmod.utils.render.ColorUtil;
 
 
 public class HoverableCircle extends CircleShape implements Hoverable {
