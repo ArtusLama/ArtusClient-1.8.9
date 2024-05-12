@@ -159,9 +159,13 @@ task buildAndCopyToMods(type: Copy, dependsOn: 'build') {
 */
 
 // Task that will build the mod and put it in the "run" folder, and then run the client.
-task buildCopyToRunModsAndRun(type: Copy, dependsOn: 'build') {
+tasks.register('buildCopyToRunModsAndRun', Copy) {
+    dependsOn 'build'
     from "build/libs"
     into "run/mods"
     include "*.jar"
 }
-buildCopyToRunModsAndRun.finalizedBy runClient
+
+tasks.named('buildCopyToRunModsAndRun').configure {
+    finalizedBy 'runClient'
+}

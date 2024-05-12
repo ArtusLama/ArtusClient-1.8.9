@@ -62,6 +62,7 @@ public class ArtusMod {
     public void init(FMLInitializationEvent event) {
 
 
+
         // - - - - - - - - - - - -   R E G I S T E R   M O D S   - - - - - - - - - - - - -
         getCustomSplashScreen().getSplashProgress().setProgress("Loading mods...");
         getModManager().registerMod(new FixHitDelayMod(), true);

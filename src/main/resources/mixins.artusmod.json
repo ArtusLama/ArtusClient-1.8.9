@@ -10,7 +10,10 @@
     "HitDelayFix",
     "SmoothSneakingMixin",
     "splashScreen.DisableForgeSplashScreen",
-    "splashScreen.LoadCustomSplashScreen"
+    "splashScreen.LoadCustomSplashScreen",
+    "betterWindow.BorderlessFullscreenWindow"
+  ],
+  "mixins": [
+    "betterWindow.QuickQuitOnStart"
   ]
-
 }
