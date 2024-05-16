@@ -24,6 +24,7 @@ group = "de.artus" // This is the group of the mod (usually domain or your name 
 archivesBaseName = "artusmod" // This is the name of the jar that is generated.
 
 sourceCompatibility = targetCompatibility = 1.8 // Java version to compile for.
+
 compileJava.options.encoding = "UTF-8" // Make sure that the encoding is set to UTF-8, so we have no encoding issues.
 
 minecraft {

@@ -2,11 +2,12 @@ package de.artus.artusmod.ui.gui.screens;
 
 import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.ui.GuiConfiguration;
-import de.artus.artusmod.ui.gui.lib.Clickable;
 import de.artus.artusmod.ui.gui.lib.Drawable;
-import de.artus.artusmod.ui.gui.lib.Hoverable;
-import de.artus.artusmod.ui.gui.lib.ScrollDetection;
-import de.artus.artusmod.utils.MouseHelper;
+import de.artus.artusmod.ui.gui.lib.UiElement;
+import de.artus.artusmod.ui.gui.lib.interfaces.Clickable;
+import de.artus.artusmod.ui.gui.lib.interfaces.Scrollable;
+import de.artus.artusmod.utils.mouse.MouseButton;
+import de.artus.artusmod.utils.mouse.MouseHelper;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.gui.GuiScreen;
@@ -19,60 +20,29 @@ import java.util.List;
 public abstract class AScreen extends GuiScreen {
 
     @Getter
-    private List<Drawable> drawables = new ArrayList<>();
+    private List<UiElement> content = new ArrayList<>();
+
+    @Getter @Setter
+    private Clickable selectedClickable = null;
 
 
     @Override
     public void initGui() {
-        getDrawables().clear();
+        getContent().clear();
         init();
     }
-
     public abstract void init();
-
-
-
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float particalTicks) {
-        super.drawScreen(mouseX, mouseY, particalTicks);
-
-        for (Drawable drawable : getDrawables()) {
-            if (drawable instanceof Hoverable) {
-                Hoverable hoverable = (Hoverable) drawable;
-                if (hoverable.isHovered(mouseX, mouseY)) {
-                    hoverable.onHovered(mouseX, mouseY);
-                } else hoverable.whileNotHovered();
-            }
-            drawable.draw(mouseX, mouseY);
-        }
-    }
 
     public GuiConfiguration getGuiConfiguration() {
         return ArtusMod.getGuiConfiguration();
     }
 
-
-    @Getter @Setter
-    private Clickable clickSelectedClickable = null;
-
     @Override
-    protected void mouseClicked(int x, int y, int btn) {
-        getDrawables().forEach(d -> {
-            if (d instanceof Clickable) {
-                Clickable clickable = (Clickable) d;
-                if (clickable.isHovered(x, y)) {
-                    setClickSelectedClickable(clickable);
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void mouseReleased(int x, int y, int btn) {
-        if (getClickSelectedClickable() != null) {
-            if (getClickSelectedClickable().isHovered(x, y)) {
-                getClickSelectedClickable().onClicked(x, y, btn);
-                setClickSelectedClickable(null);
+    public void drawScreen(int mouseX, int mouseY, float particalTicks) {
+        super.drawScreen(mouseX, mouseY, particalTicks);
+        for (UiElement element : getContent()) {
+            if (element instanceof Drawable) {
+                ((Drawable) element).draw();
             }
         }
     }
@@ -80,14 +50,14 @@ public abstract class AScreen extends GuiScreen {
     @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
+        int x = MouseHelper.getMouseX();
+        int y = MouseHelper.getMouseY();
         int scroll = Mouse.getEventDWheel();
         if (scroll != 0) {
-            int mouseX = MouseHelper.getMouseX();
-            int mouseY = MouseHelper.getMouseY();
-            for (Drawable drawable : getDrawables()) {
-                if (drawable instanceof ScrollDetection) {
-                    ScrollDetection scrollable = (ScrollDetection) drawable;
-                    if (scrollable.isInScrollArea(mouseX, mouseY)) {
+            for (UiElement element : getContent()) {
+                if (element instanceof Scrollable) {
+                    Scrollable scrollable = (Scrollable) element;
+                    if (scrollable.isInScrollableArea(x, y)) {
                         scrollable.onScroll(scroll);
                     }
                 }
@@ -95,4 +65,32 @@ public abstract class AScreen extends GuiScreen {
         }
     }
 
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int btn) {
+        setSelectedClickable(null);
+        for (UiElement element : getContent()) {
+            if (element instanceof Clickable) {
+                Clickable clickable = (Clickable) element;
+                if (clickable.isHovered(mouseX, mouseY)) {
+                    clickable.onMouseDown(MouseButton.of(btn));
+                    setSelectedClickable(clickable);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void mouseReleased(int mouseX, int mouseY, int btn) {
+        for (UiElement element : getContent()) {
+            if (element instanceof Clickable) {
+                Clickable clickable = (Clickable) element;
+                if (clickable.isHovered(mouseX, mouseY)) {
+                    clickable.onMouseUp(MouseButton.of(btn));
+                    if (getSelectedClickable() == clickable) {
+                        clickable.onClick(MouseButton.of(btn));
+                    }
+                }
+            }
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package de.artus.artusmod.mods;
 
 import de.artus.artusmod.ArtusMod;
-import de.artus.artusmod.ui.gui.screens.menus.MainMenuScreen;
+import de.artus.artusmod.ui.gui.screens.menus.MainMenuScreenOLD;
 import de.artus.artusmod.utils.DiscordRpc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -54,13 +54,19 @@ public class DiscordRpcMod extends Mod {
         if (!e.isLocal) ArtusMod.getDiscordRpc().setMultiplayer(addr);
     }
     @SubscribeEvent
+    public void onDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent e) {
+        if (ArtusMod.getDiscordRpc().getGameState() == DiscordRpc.GameState.IDLE) return;
+        ArtusMod.getDiscordRpc().setIdling();
+    }
+    @SubscribeEvent
     public void onLogout(PlayerEvent.PlayerLoggedOutEvent e) {
+        if (ArtusMod.getDiscordRpc().getGameState() == DiscordRpc.GameState.IDLE) return;
         ArtusMod.getDiscordRpc().setIdling();
     }
 
     @SubscribeEvent
     public void onMainMenu(GuiScreenEvent.InitGuiEvent e) {
-        if (e.gui instanceof MainMenuScreen || e.gui instanceof GuiMainMenu) {
+        if (e.gui instanceof MainMenuScreenOLD || e.gui instanceof GuiMainMenu) {
             if (ArtusMod.getDiscordRpc().getGameState() == DiscordRpc.GameState.IDLE) return;
             ArtusMod.getDiscordRpc().setIdling();
         }

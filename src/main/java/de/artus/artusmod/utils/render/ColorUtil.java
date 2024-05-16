@@ -21,6 +21,9 @@ public class ColorUtil {
     public static int toInt(int r, int g, int b, int a) {
         return (r << 16) + (g << 8) + b + (a << 24);
     }
+    public static String toHex(int r, int g, int b, int a) {
+        return String.format("#%02x%02x%02x%02x", r, g, b, a);
+    }
 
 
     public static int calculateHoverBackgroundColor(int r, int g, int b, int a) {

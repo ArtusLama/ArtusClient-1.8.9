@@ -7,7 +7,7 @@ import de.artus.artusmod.mods.fixes.FixHitDelayMod;
 import de.artus.artusmod.mods.fixes.FixMouseInputMod;
 import de.artus.artusmod.mods.fixes.SmoothSneakAnimationMod;
 import de.artus.artusmod.ui.gui.screens.splashScreen.CustomSplashScreen;
-import de.artus.artusmod.ui.gui.screens.menus.ModMenuScreen;
+import de.artus.artusmod.ui.gui.screens.menus.ModMenuScreenOLD;
 import de.artus.artusmod.utils.DiscordRpc;
 import de.artus.artusmod.utils.keybindings.KeybindHelper;
 import lombok.AccessLevel;
@@ -44,7 +44,7 @@ public class ArtusMod {
     private static final int splashProgressSteps = 2;
 
     @Getter
-    private static ModMenuScreen modMenuScreen = new ModMenuScreen();
+    private static ModMenuScreenOLD modMenuScreen = new ModMenuScreenOLD();
 
     @Getter
     private static DiscordRpc discordRpc = new DiscordRpc();
