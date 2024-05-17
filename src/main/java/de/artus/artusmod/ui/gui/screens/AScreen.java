@@ -8,6 +8,7 @@ import de.artus.artusmod.ui.gui.lib.UiElement;
 import de.artus.artusmod.ui.gui.lib.interfaces.Clickable;
 import de.artus.artusmod.ui.gui.lib.interfaces.Hoverable;
 import de.artus.artusmod.ui.gui.lib.interfaces.Scrollable;
+import de.artus.artusmod.utils.mouse.CursorHelper;
 import de.artus.artusmod.utils.mouse.MouseButton;
 import de.artus.artusmod.utils.mouse.MouseHelper;
 import de.artus.artusmod.utils.render.Color;
@@ -73,18 +74,14 @@ public abstract class AScreen extends GuiScreen {
                         hoverable.setCurrentlyHovered(true);
                         hoverable.onMouseEnter();
 
-                        try {
-                            MouseHelper.setCursor(new Cursor(1, 1, 0, 0, 1, IntBuffer.allocate(1), null));
-                        } catch (LWJGLException e) {
-                            throw new RuntimeException(e);
-                        }
+                        CursorHelper.useHandCursor();
                     }
                 } else {
                     if (hoverable.isCurrentlyHovered()) {
                         hoverable.setCurrentlyHovered(false);
                         hoverable.onMouseLeave();
 
-                        MouseHelper.setCursor(MouseHelper.getDefaultCursor());
+                        CursorHelper.useDefaultCursor();
                     }
                 }
             }

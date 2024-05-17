@@ -51,7 +51,7 @@ public class CustomSplashScreen {
         GlStateManager.enableTexture2D();
 
         if (getSplashScreenBackground() == null)
-            setSplashScreenBackground(new ResourceLocation("artusmod/SplashScreen.png"));
+            setSplashScreenBackground(new ResourceLocation(ArtusMod.MODID, "SplashScreen.png"));
 
         textureManager.bindTexture(getSplashScreenBackground());
 

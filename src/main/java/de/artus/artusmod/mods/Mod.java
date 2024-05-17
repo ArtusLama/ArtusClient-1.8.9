@@ -22,7 +22,7 @@ public abstract class Mod {
             if (modProps.id.equals(id)) {
                 this.name = modProps.getName();
                 this.description = modProps.getDescription();
-                this.icon = new ResourceLocation(ArtusMod.MODID + "/mods/icons/" + id + ".png");
+                this.icon = new ResourceLocation(ArtusMod.MODID, "mods/icons/" + id + ".png");
                 found = true;
                 break;
             }

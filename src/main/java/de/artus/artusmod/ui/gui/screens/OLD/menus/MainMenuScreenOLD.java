@@ -1,6 +1,7 @@
 package de.artus.artusmod.ui.gui.screens.OLD.menus;
 
 
+import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.ui.gui.OLD.lib.components.ExitButton;
 import de.artus.artusmod.ui.gui.OLD.lib.interactive.RoundedButton;
 import de.artus.artusmod.ui.gui.lib.DrawHelper;
@@ -60,11 +61,9 @@ public class MainMenuScreenOLD extends AScreenOLD {
     @Override
     public void drawScreen(int mouseX, int mouseY, float particalTicks) {
         GlStateManager.disableAlpha();
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("artusmod/MainMenuBackground.png"));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ArtusMod.MODID, "MainMenuBackground.png"));
         Gui.drawScaledCustomSizeModalRect(0, 0, 0, 0, 1920, 1080, this.width, this.height, 1920, 1080);
         GlStateManager.enableAlpha();
-
-        DrawHelper.drawRoundedRect(40, 40, 100, 100, 10, getGuiConfiguration().getTheme().getPrimaryUnfocused());
 
         super.drawScreen(mouseX, mouseY, particalTicks);
     }

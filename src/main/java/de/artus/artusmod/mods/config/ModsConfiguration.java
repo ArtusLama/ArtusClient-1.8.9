@@ -15,7 +15,7 @@ import java.io.*;
 public class ModsConfiguration {
 
     public static final String MODS_CONFIG_FILE = "mods.json";
-    public static final ResourceLocation MODS_CONFIG_RESOURCE = new ResourceLocation(ArtusMod.MODID + "/mods/" + MODS_CONFIG_FILE);
+    public static final ResourceLocation MODS_CONFIG_RESOURCE = new ResourceLocation(ArtusMod.MODID, "mods/" + MODS_CONFIG_FILE);
 
 
     public static ModsConfig getModsConfig() {
