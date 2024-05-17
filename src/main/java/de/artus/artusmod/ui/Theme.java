@@ -22,6 +22,8 @@ public class Theme {
 
 
 
+    private Color fallbackColor = Color.of("#fc0a97");
+
     private Color primary = Color.of("29A8DE");
     private Color primaryUnfocused = getPrimary().getWithAlphaPercent(65);
     private Color primaryFocused = getPrimary().getWithAlphaPercent(80);

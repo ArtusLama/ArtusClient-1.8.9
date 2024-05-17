@@ -1,7 +1,7 @@
 package de.artus.artusmod.mods;
 
 import de.artus.artusmod.ArtusMod;
-import de.artus.artusmod.ui.gui.screens.menus.MainMenuScreenOLD;
+import de.artus.artusmod.ui.gui.screens.OLD.menus.MainMenuScreenOLD;
 import de.artus.artusmod.utils.DiscordRpc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;

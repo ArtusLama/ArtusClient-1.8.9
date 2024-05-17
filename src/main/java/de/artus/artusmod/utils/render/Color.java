@@ -53,5 +53,18 @@ public class Color {
         return getWithAlpha(a / 2);
     }
 
+    public float getFRed() {
+        return getR() / 255f;
+    }
+    public float getFGreen() {
+        return getG() / 255f;
+    }
+    public float getFBlue() {
+        return getB() / 255f;
+    }
+    public float getFAlpha() {
+        return getA() / 255f;
+    }
+
 
 }

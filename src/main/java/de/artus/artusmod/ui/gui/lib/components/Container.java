@@ -17,6 +17,10 @@ public class Container extends Drawable {
     @Getter @Setter
     private List<UiElement> items = new ArrayList<>();
 
+    public Container(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
+
 
     @Override
     public void draw() {

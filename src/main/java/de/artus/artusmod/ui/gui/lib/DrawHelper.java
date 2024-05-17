@@ -23,7 +23,7 @@ public class DrawHelper {
         GlStateManager.disableTexture2D();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 
-        GlStateManager.color(color.getR(), color.getG(), color.getB(), color.getA());
+        GlStateManager.color(color.getFRed(), color.getFGreen(), color.getFBlue(), color.getFAlpha());
 
         worldRenderer.begin(GL11.GL_POLYGON, DefaultVertexFormats.POSITION);
 
@@ -50,9 +50,10 @@ public class DrawHelper {
         GlStateManager.disableTexture2D();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 
-        GlStateManager.color(color.getR(), color.getG(), color.getB(), color.getA());
+        GlStateManager.color(color.getFRed(), color.getFGreen(), color.getFBlue(), color.getFAlpha());
 
-        worldRenderer.begin(GL11.GL_POLYGON, DefaultVertexFormats.POSITION);
+        worldRenderer.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(x + radius, y + radius, 0.0).endVertex();
 
         int dots = 360;
         for (int i = endDeg; i >= startDeg; i -= 360 / dots) {
@@ -65,10 +66,30 @@ public class DrawHelper {
 
 
         tessellator.draw();
-
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }
+
+    public static void drawRoundedRect(int x, int y, int width, int height, int radius, Color color) {
+        // main rect
+        drawRect(x, y + radius, width, height - 2 * radius, color);
+        // top rect
+        drawRect(x + radius, y, width - 2 * radius, radius, color);
+        // bottom rect
+        drawRect(x + radius, y + height - radius, width - 2 * radius, radius, color);
+
+        // top left corner
+        drawFragmentCircle(x, y, 270, 360, radius, color);
+        // top right corner
+        drawFragmentCircle(x + width - 2 * radius, y, 0, 90, radius, color);
+        // bottom left corner
+        drawFragmentCircle(x, y + height - 2 * radius, 180, 270, radius, color);
+        // bottom right corner
+        drawFragmentCircle(x + width - 2 * radius, y + height - 2 * radius, 90, 180, radius, color);
+
+    }
+    
+
 
 
 }

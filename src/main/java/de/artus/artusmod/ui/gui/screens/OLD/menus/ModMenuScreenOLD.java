@@ -1,4 +1,4 @@
-package de.artus.artusmod.ui.gui.screens.menus;
+package de.artus.artusmod.ui.gui.screens.OLD.menus;
 
 
 import de.artus.artusmod.ArtusMod;
@@ -7,7 +7,7 @@ import de.artus.artusmod.ui.gui.OLD.lib.components.mods.ModMenuModsList;
 import de.artus.artusmod.ui.gui.OLD.lib.components.mods.ModMenuTopBar;
 import de.artus.artusmod.ui.gui.OLD.lib.components.mods.modInfo.ModWindow;
 import de.artus.artusmod.ui.gui.OLD.lib.shapes.RoundedRectShape;
-import de.artus.artusmod.ui.gui.screens.AScreenOLD;
+import de.artus.artusmod.ui.gui.screens.OLD.AScreenOLD;
 import lombok.Getter;
 import lombok.Setter;
 

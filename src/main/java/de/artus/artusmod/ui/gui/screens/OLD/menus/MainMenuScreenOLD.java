@@ -1,9 +1,11 @@
-package de.artus.artusmod.ui.gui.screens.menus;
+package de.artus.artusmod.ui.gui.screens.OLD.menus;
 
 
 import de.artus.artusmod.ui.gui.OLD.lib.components.ExitButton;
 import de.artus.artusmod.ui.gui.OLD.lib.interactive.RoundedButton;
-import de.artus.artusmod.ui.gui.screens.AScreenOLD;
+import de.artus.artusmod.ui.gui.lib.DrawHelper;
+import de.artus.artusmod.ui.gui.screens.AllComponentsScreen;
+import de.artus.artusmod.ui.gui.screens.OLD.AScreenOLD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -40,6 +42,10 @@ public class MainMenuScreenOLD extends AScreenOLD {
             if (mouseButton == 0)
                 Minecraft.getMinecraft().displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
         }));
+        getDrawables().add(new RoundedButton(middleButtonX, startY + buttonHeight * 3 + 40, buttonWidth, buttonHeight, "ALL NEW UI COMPONENTS").setOnClick(mouseButton -> {
+            if (mouseButton == 0)
+                Minecraft.getMinecraft().displayGuiScreen(new AllComponentsScreen());
+        }));
 
         int exitButtonPadding = 5;
         int exitButtonSize = 15;
@@ -57,6 +63,9 @@ public class MainMenuScreenOLD extends AScreenOLD {
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("artusmod/MainMenuBackground.png"));
         Gui.drawScaledCustomSizeModalRect(0, 0, 0, 0, 1920, 1080, this.width, this.height, 1920, 1080);
         GlStateManager.enableAlpha();
+
+        DrawHelper.drawRoundedRect(40, 40, 100, 100, 10, getGuiConfiguration().getTheme().getPrimaryUnfocused());
+
         super.drawScreen(mouseX, mouseY, particalTicks);
     }
 

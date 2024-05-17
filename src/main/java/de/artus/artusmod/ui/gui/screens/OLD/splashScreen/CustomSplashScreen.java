@@ -1,4 +1,4 @@
-package de.artus.artusmod.ui.gui.screens.splashScreen;
+package de.artus.artusmod.ui.gui.screens.OLD.splashScreen;
 
 import de.artus.artusmod.ArtusMod;
 import lombok.Getter;

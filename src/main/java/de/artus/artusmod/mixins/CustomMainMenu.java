@@ -1,6 +1,6 @@
 package de.artus.artusmod.mixins;
 
-import de.artus.artusmod.ui.gui.screens.menus.MainMenuScreenOLD;
+import de.artus.artusmod.ui.gui.screens.OLD.menus.MainMenuScreenOLD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;

@@ -1,4 +1,4 @@
-package de.artus.artusmod.ui.gui.screens;
+package de.artus.artusmod.ui.gui.screens.OLD;
 
 import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.ui.GuiConfiguration;
