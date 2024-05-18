@@ -33,7 +33,7 @@ public class CursorHelper {
         setCursor(getDefaultCursor());
     }
     public static void useHandCursor() {
-        setCursor(loadCursor(getImageFromResource(getHandCursor()), 11, 30));
+        setCursor(loadCursor(getImageFromResource(getHandCursor()), 6, 31));
     }
     private static BufferedImage getImageFromResource(ResourceLocation resourceLocation) {
         try {
