@@ -1,8 +1,10 @@
 package de.artus.artusmod.ui.gui.lib.components;
 
+import de.artus.artusmod.ui.gui.lib.DrawHelper;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.UiElement;
 import de.artus.artusmod.ui.gui.lib.interfaces.Hoverable;
+import de.artus.artusmod.utils.render.ScissorHelper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,11 +26,15 @@ public class Container extends Drawable {
 
     @Override
     public void draw() {
+        // TODO: for testing
+        DrawHelper.drawRect(getX(), getY(), getWidth(), getHeight(), getTheme().getBackground());
+        if (isClipContent()) ScissorHelper.startScissor(getX(), getY(), getWidth(), getHeight());
         for (UiElement item : getItems()) {
             if (item instanceof Drawable) {
                 ((Drawable) item).draw();
             }
         }
+        if (isClipContent()) ScissorHelper.stopScissor();
     }
 
     public boolean isItemHovered(UiElement item, int mouseX, int mouseY) {
@@ -40,7 +46,6 @@ public class Container extends Drawable {
     }
 
     private boolean isMouseOver(int mouseX, int mouseY) {
-        if (!isClipContent()) return true;
         return mouseX >= getX() && mouseX <= getX() + getWidth() && mouseY >= getY() && mouseY <= getY() + getHeight();
     }
 }

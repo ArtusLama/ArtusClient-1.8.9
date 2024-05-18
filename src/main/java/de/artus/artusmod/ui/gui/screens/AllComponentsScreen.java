@@ -23,6 +23,7 @@ public class AllComponentsScreen extends AScreen {
                         .setBackgroundColor(getGuiConfiguration().getTheme().getPrimary())
         );
 
+
         getElements().add(
                 new BasicButton(10, 60, 50, 30)
         );

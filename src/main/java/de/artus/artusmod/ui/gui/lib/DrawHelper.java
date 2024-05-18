@@ -1,12 +1,16 @@
 package de.artus.artusmod.ui.gui.lib;
 
 import de.artus.artusmod.utils.render.Color;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
+
+import java.util.List;
 
 public class DrawHelper {
 
@@ -86,8 +90,29 @@ public class DrawHelper {
         drawFragmentCircle(x, y + height - 2 * radius, 180, 270, radius, color);
         // bottom right corner
         drawFragmentCircle(x + width - 2 * radius, y + height - 2 * radius, 90, 180, radius, color);
-
     }
+
+    public static void drawString(FontRenderer fr, String text, int x, int y, Color color) {
+        fr.drawString(text, x, y, color.getInt());
+    }
+    public static void drawCenteredString(FontRenderer fr, String text, int x, int y, Color color) {
+        drawString(fr, text, x - fr.getStringWidth(text) / 2, y, color);
+    }
+    public static void drawLinesWithPadding(FontRenderer fr, List<String> lines, int x, int y, int padding, Color color) {
+        for (int i = 0; i < lines.size(); i++) {
+            drawString(fr, lines.get(i), x, y + i * (fr.FONT_HEIGHT + padding), color);
+        }
+    }
+    public static void drawLines(FontRenderer fr, List<String> lines, int x, int y, Color color) {
+        drawLinesWithPadding(fr, lines, x, y, 0, color);
+    }
+
+    public static void drawTextBlock(FontRenderer fr, String text, int linePadding, int x, int y, int width, int height, Color color) {
+        List<String> lines = TextHelper.getLinesForBoxSize(fr, linePadding, text, width, height);
+        drawLinesWithPadding(fr, lines, x, y, linePadding, color);
+    }
+
+
     
 
 
