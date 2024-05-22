@@ -4,7 +4,6 @@ package de.artus.artusmod.ui.gui.screens.OLD.menus;
 import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.ui.gui.OLD.lib.components.ExitButton;
 import de.artus.artusmod.ui.gui.OLD.lib.interactive.RoundedButton;
-import de.artus.artusmod.ui.gui.lib.DrawHelper;
 import de.artus.artusmod.ui.gui.screens.AllComponentsScreen;
 import de.artus.artusmod.ui.gui.screens.OLD.AScreenOLD;
 import net.minecraft.client.Minecraft;

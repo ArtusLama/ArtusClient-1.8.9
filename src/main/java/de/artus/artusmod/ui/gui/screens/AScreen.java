@@ -2,30 +2,23 @@ package de.artus.artusmod.ui.gui.screens;
 
 import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.ui.GuiConfiguration;
-import de.artus.artusmod.ui.gui.lib.DrawHelper;
+import de.artus.artusmod.ui.gui.lib.helpers.DrawHelper;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.UiElement;
 import de.artus.artusmod.ui.gui.lib.interfaces.Clickable;
 import de.artus.artusmod.ui.gui.lib.interfaces.Hoverable;
 import de.artus.artusmod.ui.gui.lib.interfaces.Scrollable;
+import de.artus.artusmod.ui.gui.lib.interfaces.Tooltip;
 import de.artus.artusmod.utils.mouse.CursorHelper;
 import de.artus.artusmod.utils.mouse.MouseButton;
 import de.artus.artusmod.utils.mouse.MouseHelper;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.OpenGlHelper;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.LWJGLUtil;
-import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
-import java.awt.*;
 import java.io.IOException;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +51,22 @@ public abstract class AScreen extends GuiScreen {
                 ((Drawable) element).draw();
             }
         }
+
+        checkForTooltips();
+    }
+
+    public void checkForTooltips() {
+        int mouseX = MouseHelper.getMouseX();
+        int mouseY = MouseHelper.getMouseY();
+
+        for (UiElement element : getElements()) {
+            if (element instanceof Tooltip) {
+                Tooltip tooltip = (Tooltip) element;
+                if (tooltip.isHovered(mouseX, mouseY)) {
+                    tooltip.displayTooltip(mouseX, mouseY);
+                }
+            }
+        }
     }
 
     @Override
@@ -74,14 +83,14 @@ public abstract class AScreen extends GuiScreen {
                         hoverable.setCurrentlyHovered(true);
                         hoverable.onMouseEnter();
 
-                        CursorHelper.useHandCursor();
+                        CursorHelper.useHandCursor(); // TODO just temporary
                     }
                 } else {
                     if (hoverable.isCurrentlyHovered()) {
                         hoverable.setCurrentlyHovered(false);
                         hoverable.onMouseLeave();
 
-                        CursorHelper.useDefaultCursor();
+                        CursorHelper.useDefaultCursor(); // TODO just temporary
                     }
                 }
             }

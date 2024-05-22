@@ -1,4 +1,4 @@
-package de.artus.artusmod.ui.gui.lib;
+package de.artus.artusmod.ui.gui.lib.helpers;
 
 import net.minecraft.client.gui.FontRenderer;
 
@@ -16,6 +16,7 @@ public class TextHelper {
             if (fr.getStringWidth(line + word) > maxWidth) {
                 lines.add(line.toString());
                 line = new StringBuilder(word + " ");
+                continue;
             }
             line.append(word).append(" ");
         }
@@ -36,7 +37,7 @@ public class TextHelper {
 
         if (lines.size() > 0) {
             String lastLine = lines.get(lines.size() - 1);
-            lines.set(lines.size() - 1, getLineWithMaxWidth(fr, lastLine, width));
+            lines.set(lines.size() - 1, getLineWithMaxWidth(fr, lastLine, width, true));
         }
 
 
@@ -44,8 +45,8 @@ public class TextHelper {
         return lines;
     }
 
-    public static String getLineWithMaxWidth(FontRenderer fr, String text, int maxWidth) {
-        if (fr.getStringWidth(text) <= maxWidth) return text;
+    public static String getLineWithMaxWidth(FontRenderer fr, String text, int maxWidth, boolean hasMoreContent) {
+        if (fr.getStringWidth(text) <= maxWidth && !hasMoreContent) return text;
         while (fr.getStringWidth(text + "...") > maxWidth) {
             text = text.substring(0, text.length() - 1);
         }

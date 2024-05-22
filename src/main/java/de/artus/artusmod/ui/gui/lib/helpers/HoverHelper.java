@@ -1,4 +1,4 @@
-package de.artus.artusmod.ui.gui.lib;
+package de.artus.artusmod.ui.gui.lib.helpers;
 
 public class HoverHelper {
 

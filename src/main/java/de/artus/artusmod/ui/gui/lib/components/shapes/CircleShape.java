@@ -1,6 +1,6 @@
 package de.artus.artusmod.ui.gui.lib.components.shapes;
 
-import de.artus.artusmod.ui.gui.lib.DrawHelper;
+import de.artus.artusmod.ui.gui.lib.helpers.DrawHelper;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;

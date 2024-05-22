@@ -1,7 +1,6 @@
-package de.artus.artusmod.ui.gui.lib;
+package de.artus.artusmod.ui.gui.lib.helpers;
 
 import de.artus.artusmod.utils.render.Color;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -75,6 +74,13 @@ public class DrawHelper {
     }
 
     public static void drawRoundedRect(int x, int y, int width, int height, int radius, Color color) {
+        if (radius > width / 2) {
+            radius = width / 2;
+        }
+        if (radius > height / 2) {
+            radius = height / 2;
+        }
+
         // main rect
         drawRect(x, y + radius, width, height - 2 * radius, color);
         // top rect
@@ -103,13 +109,25 @@ public class DrawHelper {
             drawString(fr, lines.get(i), x, y + i * (fr.FONT_HEIGHT + padding), color);
         }
     }
+    public static void drawCenteredLinesWithPadding(FontRenderer fr, List<String> lines, int x, int y, int padding, Color color) {
+        for (int i = 0; i < lines.size(); i++) {
+            drawCenteredString(fr, lines.get(i), x, y + i * (fr.FONT_HEIGHT + padding), color);
+        }
+    }
     public static void drawLines(FontRenderer fr, List<String> lines, int x, int y, Color color) {
         drawLinesWithPadding(fr, lines, x, y, 0, color);
+    }
+    public static void drawCenteredLines(FontRenderer fr, List<String> lines, int x, int y, Color color) {
+        drawCenteredLinesWithPadding(fr, lines, x, y, 0, color);
     }
 
     public static void drawTextBlock(FontRenderer fr, String text, int linePadding, int x, int y, int width, int height, Color color) {
         List<String> lines = TextHelper.getLinesForBoxSize(fr, linePadding, text, width, height);
         drawLinesWithPadding(fr, lines, x, y, linePadding, color);
+    }
+    public static void drawCenteredTextBlock(FontRenderer fr, String text, int linePadding, int x, int y, int width, int height, Color color) {
+        List<String> lines = TextHelper.getLinesForBoxSize(fr, linePadding, text, width, height);
+        drawCenteredLinesWithPadding(fr, lines, x + width / 2, y, linePadding, color);
     }
 
 

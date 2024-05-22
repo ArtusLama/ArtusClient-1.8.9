@@ -1,6 +1,6 @@
 package de.artus.artusmod.ui.gui.lib.components;
 
-import de.artus.artusmod.ui.gui.lib.DrawHelper;
+import de.artus.artusmod.ui.gui.lib.helpers.DrawHelper;
 import de.artus.artusmod.ui.gui.lib.Drawable;
 import de.artus.artusmod.ui.gui.lib.UiElement;
 import de.artus.artusmod.ui.gui.lib.interfaces.Hoverable;

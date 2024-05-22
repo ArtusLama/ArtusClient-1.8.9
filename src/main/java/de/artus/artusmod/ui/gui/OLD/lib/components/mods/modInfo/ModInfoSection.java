@@ -2,8 +2,8 @@ package de.artus.artusmod.ui.gui.OLD.lib.components.mods.modInfo;
 
 import de.artus.artusmod.mods.Mod;
 import de.artus.artusmod.ui.gui.OLD.lib.Drawable;
+import de.artus.artusmod.ui.gui.lib.helpers.TextHelper;
 import de.artus.artusmod.utils.render.ColorUtil;
-import de.artus.artusmod.utils.render.TextDrawHelper;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -30,7 +30,7 @@ public class ModInfoSection extends Drawable {
         contentHeight += fr.FONT_HEIGHT;
         contentHeight += 4;
 
-        List<String> lines = TextDrawHelper.lines(fr, getMod().getDescription(), getWidth());
+        List<String> lines = TextHelper.getLinesWithMaxWidth(fr, getMod().getDescription(), getWidth());
         for (String line : lines) {
             drawString(fr, line, getX(), getY() + contentHeight, getTheme().getTextColor());
             contentHeight += fr.FONT_HEIGHT;
