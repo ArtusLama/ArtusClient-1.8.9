@@ -1,5 +1,6 @@
 package de.artus.artusmod.mixins;
 
+import de.artus.artusmod.ArtusMod;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
@@ -10,9 +11,9 @@ import java.util.Map;
 public class MixinLoader implements IFMLLoadingPlugin {
 
     public MixinLoader() {
-        System.out.println("[ArtusMod] Injecting with IFMLLoadingPlugin.");
+        System.out.println("Injecting Mixins from " + ArtusMod.MODID);
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.artusmod.json"); //TODO: Add your own mixin config file here
+        Mixins.addConfiguration("mixins." + ArtusMod.MODID + ".json");
         MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
     }
 
