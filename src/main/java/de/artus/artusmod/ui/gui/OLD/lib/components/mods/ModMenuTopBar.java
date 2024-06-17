@@ -34,7 +34,7 @@ public class ModMenuTopBar extends HoverableRoundedRect implements Clickable {
         GlStateManager.resetColor();
 
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        drawString(fr, modName, getX() + iconSize + iconPadding * 2, getY() + getHeight() / 2 - fr.FONT_HEIGHT / 2, getTheme().getTextColor());
+        drawString(fr, modName, getX() + iconSize + iconPadding * 2, getY() + getHeight() / 2 - fr.FONT_HEIGHT / 2, getTheme().getTextColorOLD());
     }
 
     @Override

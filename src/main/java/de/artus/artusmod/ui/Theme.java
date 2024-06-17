@@ -3,15 +3,21 @@ package de.artus.artusmod.ui;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 
 
 @Getter @Setter
 public class Theme {
 
+    public void loadFontRenderer() {
+        setDefaultFontRenderer(Minecraft.getMinecraft().fontRendererObj);
+    }
+    private FontRenderer defaultFontRenderer;
 
     private int primaryColor = new Color(3, 175, 239, 255).getInt();
     private int backgroundColor = new Color(21, 21, 21, 200).getInt();
-    private int textColor = new Color(255, 255, 255, 255).getInt();
+    private int textColorOLD = new Color(255, 255, 255, 255).getInt();
 
     private int buttonBackgroundColor = new Color(200, 200, 200, 75).getInt();
     private int modMenuModBackgroundColor = new Color(15, 15, 15, 210).getInt();

@@ -27,8 +27,19 @@ public abstract class AScreen extends GuiScreen {
     @Getter
     private List<UiElement> elements = new ArrayList<>();
 
+
+    @Getter @Setter
+    private int lastMouseX = 0;
+    @Getter @Setter
+    private int lastMouseY = 0;
+
     @Getter @Setter
     private Clickable selectedClickable = null;
+
+    @Getter @Setter
+    private long lastMouseHoverTooltipBeginTime = 0;
+
+    protected boolean closingScreen = false;
 
 
     @Override
@@ -45,7 +56,7 @@ public abstract class AScreen extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float particalTicks) {
         super.drawScreen(mouseX, mouseY, particalTicks);
-        DrawHelper.drawRect(0, 0, width, height, Color.of("#000000"));
+
         for (UiElement element : getElements()) {
             if (element instanceof Drawable) {
                 ((Drawable) element).draw();
@@ -63,10 +74,17 @@ public abstract class AScreen extends GuiScreen {
             if (element instanceof Tooltip) {
                 Tooltip tooltip = (Tooltip) element;
                 if (tooltip.isHovered(mouseX, mouseY)) {
-                    tooltip.displayTooltip(mouseX, mouseY);
+                    if (tooltip.checkTooltipDelay(getLastMouseHoverTooltipBeginTime())) {
+                        tooltip.displayTooltip(mouseX, mouseY);
+                    }
                 }
             }
         }
+    }
+
+    // empty => for overriding
+    public void onMouseMove() {
+
     }
 
     @Override
@@ -75,6 +93,12 @@ public abstract class AScreen extends GuiScreen {
         int x = MouseHelper.getMouseX();
         int y = MouseHelper.getMouseY();
 
+        if (getLastMouseX() != x || getLastMouseY() != y) {
+            onMouseMove();
+            setLastMouseHoverTooltipBeginTime(System.currentTimeMillis());
+        }
+
+
         for (UiElement element : getElements()) {
             if (element instanceof Hoverable) {
                 Hoverable hoverable = (Hoverable) element;
@@ -82,19 +106,32 @@ public abstract class AScreen extends GuiScreen {
                     if (!hoverable.isCurrentlyHovered()) {
                         hoverable.setCurrentlyHovered(true);
                         hoverable.onMouseEnter();
-
-                        CursorHelper.useHandCursor(); // TODO just temporary
                     }
                 } else {
                     if (hoverable.isCurrentlyHovered()) {
                         hoverable.setCurrentlyHovered(false);
                         hoverable.onMouseLeave();
-
-                        CursorHelper.useDefaultCursor(); // TODO just temporary
                     }
                 }
             }
         }
+
+
+
+        //TODO not perfect, but works for now
+        boolean isHoveringSomething = getElements().stream().anyMatch(e -> {
+            if (e instanceof Hoverable) {
+                Hoverable hoverable = (Hoverable) e;
+                return hoverable.isCurrentlyHovered();
+            }
+            return false;
+        });
+        if (closingScreen) isHoveringSomething = false; // To fix a bug where the cursor would not be reset to default after switching the screen
+
+        if (isHoveringSomething) CursorHelper.useHandCursor();
+        else CursorHelper.useDefaultCursor();
+
+
 
 
         int scroll = Mouse.getEventDWheel();
@@ -108,8 +145,18 @@ public abstract class AScreen extends GuiScreen {
                 }
             }
         }
+
+        setLastMouseX(x);
+        setLastMouseY(y);
+
     }
 
+    @Override
+    public void onGuiClosed() {
+        // Solves a bug where the cursor would not be reset to default after switching the screen
+        CursorHelper.useDefaultCursor();
+        closingScreen = true;
+    }
 
 
     @Override

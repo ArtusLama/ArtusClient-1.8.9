@@ -1,6 +1,7 @@
 package de.artus.artusmod;
 
 import de.artus.artusmod.mods.DiscordRpcMod;
+import de.artus.artusmod.other.RangePreview;
 import de.artus.artusmod.ui.GuiConfiguration;
 import de.artus.artusmod.mods.ModManager;
 import de.artus.artusmod.mods.fixes.FixHitDelayMod;
@@ -60,7 +61,9 @@ public class ArtusMod {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-
+        // needed because the font renderer is null before loaded and needs to be updated after it has been loaded!
+        getGuiConfiguration().getTheme().loadFontRenderer();
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
         // - - - - - - - - - - - -   R E G I S T E R   M O D S   - - - - - - - - - - - - -
@@ -73,6 +76,9 @@ public class ArtusMod {
 
         getModManager().loadMods();
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        // TODO: for testing purposes
+        //new RangePreview();
 
 
         getCustomSplashScreen().getSplashProgress().setProgress("Loading Minecraft Stuff...");

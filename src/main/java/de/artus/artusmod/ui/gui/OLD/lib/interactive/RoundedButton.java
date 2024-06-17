@@ -34,7 +34,7 @@ public class RoundedButton extends HoverableRoundedRect implements Clickable {
         super.draw(mouseX, mouseY);
 
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        drawCenteredString(fr, getText(), getX() + getWidth() / 2, getY() + getHeight() / 2 - fr.FONT_HEIGHT / 2, getTheme().getTextColor());
+        drawCenteredString(fr, getText(), getX() + getWidth() / 2, getY() + getHeight() / 2 - fr.FONT_HEIGHT / 2, getTheme().getTextColorOLD());
     }
 
 

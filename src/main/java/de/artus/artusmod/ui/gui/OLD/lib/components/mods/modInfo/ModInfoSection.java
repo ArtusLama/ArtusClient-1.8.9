@@ -32,7 +32,7 @@ public class ModInfoSection extends Drawable {
 
         List<String> lines = TextHelper.getLinesWithMaxWidth(fr, getMod().getDescription(), getWidth());
         for (String line : lines) {
-            drawString(fr, line, getX(), getY() + contentHeight, getTheme().getTextColor());
+            drawString(fr, line, getX(), getY() + contentHeight, getTheme().getTextColorOLD());
             contentHeight += fr.FONT_HEIGHT;
             contentHeight += 1;
         }

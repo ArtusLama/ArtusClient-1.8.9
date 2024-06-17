@@ -1,16 +1,19 @@
 package de.artus.artusmod.ui.gui.lib.helpers;
 
+import de.artus.artusmod.ArtusMod;
+import de.artus.artusmod.ui.Theme;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import org.lwjgl.opengl.Display;
 
 public class TooltipHelper {
 
-    @Getter @Setter
-    private static FontRenderer tooltipFontRenderer = Minecraft.getMinecraft().fontRendererObj;
+
+    public static FontRenderer getTooltipFontRenderer() {
+        return ArtusMod.getGuiConfiguration().getTheme().getDefaultFontRenderer();
+    }
 
     @Getter @Setter
     private static Color tooltipTextColor = Color.of("#D2D2D2");

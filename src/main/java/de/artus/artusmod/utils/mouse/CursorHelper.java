@@ -1,7 +1,10 @@
 package de.artus.artusmod.utils.mouse;
 
 import de.artus.artusmod.ArtusMod;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.BufferUtils;
@@ -17,24 +20,57 @@ import java.nio.IntBuffer;
 public class CursorHelper {
 
     @Getter
-    private static ResourceLocation handCursor = new ResourceLocation(ArtusMod.MODID, "cursors/hand.png");
+    private static final Cursor defaultCursor = Mouse.getNativeCursor();
 
+    @AllArgsConstructor
+    public enum CursorType {
+        DEFAULT(""),
+        HAND("cursors/hand.png");
 
-    @Getter
-    public static final Cursor defaultCursor = Mouse.getNativeCursor();
-    public static void setCursor(Cursor cursor) {
+        @Getter
+        private final String path;
+
+        // Do not use on Default -> else it will cause an error
+        public ResourceLocation getResourceLocation() {
+            return new ResourceLocation(ArtusMod.MODID, getPath());
+        }
+        public Cursor getCursor() {
+            switch (this) {
+                case DEFAULT:
+                    return getDefaultCursor();
+                case HAND:
+                    return loadCursor(getImageFromResource(getResourceLocation()), 6, 31);
+            }
+
+            // Fallback hotspot
+            return loadCursor(getImageFromResource(getResourceLocation()), 0, 0);
+        }
+    }
+
+    @Getter @Setter(AccessLevel.PRIVATE)
+    private static CursorType currentCursor = CursorType.DEFAULT;
+
+    public static void setCursor(CursorType cursor) {
         try {
-            Mouse.setNativeCursor(cursor);
+            Mouse.setNativeCursor(cursor.getCursor());
+            setCurrentCursor(cursor);
         } catch (LWJGLException e) {
             e.printStackTrace();
         }
     }
+
+
     public static void useDefaultCursor() {
-        setCursor(getDefaultCursor());
+        if (getCurrentCursor() != CursorType.DEFAULT)
+            setCursor(CursorType.DEFAULT);
     }
     public static void useHandCursor() {
-        setCursor(loadCursor(getImageFromResource(getHandCursor()), 6, 31));
+        if (getCurrentCursor() != CursorType.HAND)
+            setCursor(CursorType.HAND);
     }
+
+
+
     private static BufferedImage getImageFromResource(ResourceLocation resourceLocation) {
         try {
             return ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(resourceLocation).getInputStream());

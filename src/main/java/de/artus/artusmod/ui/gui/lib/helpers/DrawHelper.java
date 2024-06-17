@@ -1,12 +1,15 @@
 package de.artus.artusmod.ui.gui.lib.helpers;
 
+import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.utils.render.Color;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -131,6 +134,12 @@ public class DrawHelper {
     }
 
 
+    public static void drawImage(ResourceLocation rl, int x, int y, int width, int height, int imgWidth, int imgHeight) {
+        GlStateManager.disableAlpha();
+        Minecraft.getMinecraft().getTextureManager().bindTexture(rl);
+        Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, imgWidth, imgHeight, width, height, imgWidth, imgHeight);
+        GlStateManager.enableAlpha();
+    }
     
 
 
