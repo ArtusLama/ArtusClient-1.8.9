@@ -7,6 +7,7 @@ import de.artus.artusmod.mods.ModManager;
 import de.artus.artusmod.mods.fixes.FixHitDelayMod;
 import de.artus.artusmod.mods.fixes.FixMouseInputMod;
 import de.artus.artusmod.mods.fixes.SmoothSneakAnimationMod;
+import de.artus.artusmod.ui.gui.lib.helpers.FontManager;
 import de.artus.artusmod.ui.gui.screens.OLD.splashScreen.CustomSplashScreen;
 import de.artus.artusmod.ui.gui.screens.OLD.menus.ModMenuScreenOLD;
 import de.artus.artusmod.utils.DiscordRpc;
@@ -61,9 +62,9 @@ public class ArtusMod {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        // needed because the font renderer is null before loaded and needs to be updated after it has been loaded!
-        getGuiConfiguration().getTheme().loadFontRenderer();
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // - - - - - - - - - - - - - -   L O A D I N G   F O N T   M A N A G E R   - - - - - - - - - - - - - - -
+        FontManager.loadFonts();
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
         // - - - - - - - - - - - -   R E G I S T E R   M O D S   - - - - - - - - - - - - -

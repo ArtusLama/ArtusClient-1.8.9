@@ -1,7 +1,5 @@
 package de.artus.artusmod.ui.gui.lib.helpers;
 
-import de.artus.artusmod.ArtusMod;
-import de.artus.artusmod.ui.Theme;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +10,7 @@ public class TooltipHelper {
 
 
     public static FontRenderer getTooltipFontRenderer() {
-        return ArtusMod.getGuiConfiguration().getTheme().getDefaultFontRenderer();
+        return FontManager.getCustomFont();
     }
 
     @Getter @Setter

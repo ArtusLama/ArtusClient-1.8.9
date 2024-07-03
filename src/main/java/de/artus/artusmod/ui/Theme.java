@@ -3,17 +3,10 @@ package de.artus.artusmod.ui;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-
 
 @Getter @Setter
 public class Theme {
 
-    public void loadFontRenderer() {
-        setDefaultFontRenderer(Minecraft.getMinecraft().fontRendererObj);
-    }
-    private FontRenderer defaultFontRenderer;
 
     private int primaryColor = new Color(3, 175, 239, 255).getInt();
     private int backgroundColor = new Color(21, 21, 21, 200).getInt();
@@ -28,22 +21,23 @@ public class Theme {
 
 
 
-    private Color fallbackColor = Color.of("#fc0a97");
+    private Color fallbackColor = Color.of("#fc0a97"); // not final
 
-    private Color primary = Color.of("29A8DE");
-    private Color primaryUnfocused = getPrimary().getWithAlphaPercent(65);
-    private Color primaryFocused = getPrimary().getWithAlphaPercent(80);
+    private Color primary = Color.of("29A8DE"); // not final
+    private Color primaryUnfocused = getPrimary().getWithAlphaPercent(65); // not final
+    private Color primaryFocused = getPrimary().getWithAlphaPercent(80); // not final
 
-    private Color background = Color.of("B0B0B0").getWithAlphaPercent(25);
-    private Color backgroundLight = getBackground().getWithAlphaPercent(50);
-    private Color darkBackground = Color.of("757575").getWithAlphaPercent(25);
-    private Color darkBackgroundLight = getDarkBackground().getWithAlphaPercent(50);
+    private Color background = Color.of("C1C1C1").getWithAlphaPercent(50);
+    private Color backgroundLight = getBackground().getWithAlphaPercent(85);
+    private Color darkBackground = Color.of("757575").getWithAlphaPercent(25); // not final
+    private Color darkBackgroundLight = getDarkBackground().getWithAlphaPercent(50); // not final
 
-    private Color text = Color.of("FFFFFF").getWithAlphaPercent(75);
-    private Color textLight = getText().getWithAlphaPercent(100);
+    private Color textTransparent = Color.of("FFFFFF").getWithAlphaPercent(85);
+    private Color text = Color.of("FFFFFF").getWithAlphaPercent(75); // not final
+    private Color textLight = getText().getWithAlphaPercent(100); // not final
 
-    private Color dangerColor = Color.of("FF3C3C");
-    private Color transparentDangerColor = getDangerColor().getWithAlphaPercent(25);
+    private Color dangerColor = Color.of("FF3C3C"); // not final
+    private Color transparentDangerColor = getDangerColor().getWithAlphaPercent(25); // not final
 
 
     public static Theme getDefault() {

@@ -30,10 +30,6 @@ public class BasicButton extends RoundedRectShape implements Clickable {
     }
 
 
-    @Override
-    public void draw() {
-        DrawHelper.drawRoundedRect(getX(), getY(), getWidth(), getHeight(), getCornerRadius(), getBackgroundColor());
-    }
 
 
 

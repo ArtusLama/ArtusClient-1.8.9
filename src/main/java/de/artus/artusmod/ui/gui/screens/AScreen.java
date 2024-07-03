@@ -27,7 +27,6 @@ public abstract class AScreen extends GuiScreen {
     @Getter
     private List<UiElement> elements = new ArrayList<>();
 
-
     @Getter @Setter
     private int lastMouseX = 0;
     @Getter @Setter
@@ -46,6 +45,8 @@ public abstract class AScreen extends GuiScreen {
     public void initGui() {
         getElements().clear();
         init();
+
+        checkForHandCursor(); // Solves a bug where the cursor would not be set to the right one after switching the screen
     }
     public abstract void init();
 
@@ -116,22 +117,7 @@ public abstract class AScreen extends GuiScreen {
             }
         }
 
-
-
-        //TODO not perfect, but works for now
-        boolean isHoveringSomething = getElements().stream().anyMatch(e -> {
-            if (e instanceof Hoverable) {
-                Hoverable hoverable = (Hoverable) e;
-                return hoverable.isCurrentlyHovered();
-            }
-            return false;
-        });
-        if (closingScreen) isHoveringSomething = false; // To fix a bug where the cursor would not be reset to default after switching the screen
-
-        if (isHoveringSomething) CursorHelper.useHandCursor();
-        else CursorHelper.useDefaultCursor();
-
-
+        checkForHandCursor();
 
 
         int scroll = Mouse.getEventDWheel();
@@ -149,6 +135,21 @@ public abstract class AScreen extends GuiScreen {
         setLastMouseX(x);
         setLastMouseY(y);
 
+    }
+
+    private void checkForHandCursor() {
+        //TODO not perfect, but works for now
+        boolean isHoveringSomething = getElements().stream().anyMatch(e -> {
+            if (e instanceof Hoverable) {
+                Hoverable hoverable = (Hoverable) e;
+                return hoverable.isCurrentlyHovered();
+            }
+            return false;
+        });
+        if (closingScreen) isHoveringSomething = false; // To fix a bug where the cursor would not be reset to default after switching the screen
+
+        if (isHoveringSomething) CursorHelper.useHandCursor();
+        else CursorHelper.useDefaultCursor();
     }
 
     @Override
@@ -186,5 +187,9 @@ public abstract class AScreen extends GuiScreen {
                 }
             }
         }
+    }
+
+    public void drawDefaultBackground() {
+        DrawHelper.drawRect(0, 0, width, height, Color.of(0, 0, 0));
     }
 }
