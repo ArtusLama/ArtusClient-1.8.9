@@ -49,7 +49,7 @@ public class AllComponentsScreen extends AScreen {
 
         DrawHelper.drawFragmentCircleOutline(70, 10, 270, 360, 8, 3, Color.of(0, 255, 0));
 
-        DrawHelper.drawRoundedRectOutline(190, 10, 50, 30, 4, 2, Color.of(50, 50, 200));
+        DrawHelper.drawRoundedRectOutline(190, 10, 50, 30, 4, 15, Color.of(50, 50, 200, 200));
 
     }
 }
