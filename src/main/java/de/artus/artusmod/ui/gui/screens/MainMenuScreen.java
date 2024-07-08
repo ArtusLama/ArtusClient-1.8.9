@@ -3,6 +3,8 @@ package de.artus.artusmod.ui.gui.screens;
 import de.artus.artusmod.ArtusMod;
 import de.artus.artusmod.ui.gui.lib.components.interactable.BasicButton;
 import de.artus.artusmod.ui.gui.lib.components.interactable.BasicTextButton;
+import de.artus.artusmod.ui.gui.lib.components.interactable.DefaultButton;
+import de.artus.artusmod.ui.gui.lib.components.interactable.DefaultTextButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -17,11 +19,11 @@ public class MainMenuScreen extends AScreen {
     @Override
     public void init() {
         int btnWidth = 175;
-        int btnHeight = 20;
+        int btnHeight = 18;
         int btnYOffset = 25;
 
         getElements().add(
-                new BasicTextButton(
+                new DefaultTextButton(
                         width / 2 - btnWidth / 2,
                         height / 2 - btnHeight,
                         btnWidth,
@@ -30,7 +32,7 @@ public class MainMenuScreen extends AScreen {
                 ).setOnClick(() -> Minecraft.getMinecraft().displayGuiScreen(new GuiSelectWorld(this)))
         );
         getElements().add(
-                new BasicTextButton(
+                new DefaultTextButton(
                         width / 2 - btnWidth / 2,
                         height / 2 - btnHeight + btnYOffset,
                         btnWidth,
@@ -39,7 +41,7 @@ public class MainMenuScreen extends AScreen {
                 ).setOnClick(() -> Minecraft.getMinecraft().displayGuiScreen(new GuiMultiplayer(this)))
         );
         getElements().add(
-                new BasicTextButton(
+                new DefaultTextButton(
                         width / 2 - btnWidth / 2,
                         height / 2 - btnHeight + (2 * btnYOffset),
                         btnWidth,
@@ -51,7 +53,7 @@ public class MainMenuScreen extends AScreen {
 
         //TODO for dev only (all components screen for testing) also handle screen switching better!
         getElements().add(
-                new BasicButton(5, 5, 20, 20).setOnClick(() -> Minecraft.getMinecraft().displayGuiScreen(new AllComponentsScreen()))
+                new DefaultButton(5, 5, 20, 20).setOnClick(() -> Minecraft.getMinecraft().displayGuiScreen(new AllComponentsScreen()))
         );
 
     }

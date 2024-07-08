@@ -6,6 +6,8 @@ import de.artus.artusmod.ui.gui.lib.components.shapes.RectShape;
 import de.artus.artusmod.ui.gui.lib.components.shapes.RoundedRectShape;
 import de.artus.artusmod.ui.gui.lib.components.text.CenteredTextContainer;
 import de.artus.artusmod.ui.gui.lib.components.text.TextContainer;
+import de.artus.artusmod.ui.gui.lib.font.CustomFont;
+import de.artus.artusmod.ui.gui.lib.font.FontManager;
 import de.artus.artusmod.ui.gui.lib.helpers.DrawHelper;
 import de.artus.artusmod.utils.render.Color;
 
@@ -43,13 +45,17 @@ public class AllComponentsScreen extends AScreen {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, particalTicks);
 
-        DrawHelper.drawRectOutline(10, 10, 50, 30, 5, Color.of(255, 0, 0));
+        DrawHelper.drawRectOutline(10, 10, 50, 30, 2, Color.of(255, 0, 0, 200));
 
         DrawHelper.drawCircleOutline(130, 10, 15, 5, Color.of(0, 255, 0));
 
-        DrawHelper.drawFragmentCircleOutline(70, 10, 270, 360, 8, 3, Color.of(0, 255, 0));
+        DrawHelper.drawFragmentCircleOutline(70, 10, 270, 360, 8, 2, Color.of(0, 255, 0));
 
-        DrawHelper.drawRoundedRectOutline(190, 10, 50, 30, 4, 15, Color.of(50, 50, 200, 200));
+        DrawHelper.drawRoundedRectOutline(190, 10, 50, 30, 4, 4, Color.of(50, 50, 200, 200));
+
+
+        CustomFont customFont = (CustomFont) FontManager.getCustomFont();
+        customFont.getRenderer().drawString("Hello World!", 10, 100, Color.of(255, 0, 255).getInt());
 
     }
 }

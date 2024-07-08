@@ -1,13 +1,12 @@
 package de.artus.artusmod;
 
 import de.artus.artusmod.mods.DiscordRpcMod;
-import de.artus.artusmod.other.RangePreview;
 import de.artus.artusmod.ui.GuiConfiguration;
 import de.artus.artusmod.mods.ModManager;
 import de.artus.artusmod.mods.fixes.FixHitDelayMod;
 import de.artus.artusmod.mods.fixes.FixMouseInputMod;
 import de.artus.artusmod.mods.fixes.SmoothSneakAnimationMod;
-import de.artus.artusmod.ui.gui.lib.helpers.FontManager;
+import de.artus.artusmod.ui.gui.lib.font.FontManager;
 import de.artus.artusmod.ui.gui.screens.OLD.splashScreen.CustomSplashScreen;
 import de.artus.artusmod.ui.gui.screens.OLD.menus.ModMenuScreenOLD;
 import de.artus.artusmod.utils.DiscordRpc;

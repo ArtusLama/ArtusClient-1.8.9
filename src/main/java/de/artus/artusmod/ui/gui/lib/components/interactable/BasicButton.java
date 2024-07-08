@@ -26,10 +26,8 @@ public class BasicButton extends RoundedRectShape implements Clickable {
 
 
     public BasicButton(int x, int y, int width, int height) {
-        super(x, y, width, height, 4);
+        super(x, y, width, height, 3);
     }
-
-
 
 
 
@@ -41,13 +39,13 @@ public class BasicButton extends RoundedRectShape implements Clickable {
     @Override
     public void onMouseEnter() {
         if (getBackgroundColor() instanceof ColorTransition) ((ColorTransition) getBackgroundColor()).stop();
-        setBackgroundColor(new ColorTransition(getTheme().getBackground(), getTheme().getBackgroundLight()).setDuration(150).start());
+        setBackgroundColor(new ColorTransition(getTheme().getBackground(), getTheme().getBackgroundLight()).setDuration(100).start());
     }
 
     @Override
     public void onMouseLeave() {
         if (getBackgroundColor() instanceof ColorTransition) ((ColorTransition) getBackgroundColor()).stop();
-        setBackgroundColor(new ColorTransition(getBackgroundColor(), getTheme().getBackground()).setDuration(150).start());
+        setBackgroundColor(new ColorTransition(getBackgroundColor(), getTheme().getBackground()).setDuration(100).start());
     }
 
 

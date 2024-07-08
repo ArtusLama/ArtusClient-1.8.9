@@ -1,4 +1,4 @@
-package de.artus.artusmod.ui.gui.lib.helpers;
+package de.artus.artusmod.ui.gui.lib.font;
 
 import de.artus.artusmod.ArtusMod;
 import lombok.Getter;
@@ -29,9 +29,14 @@ public class FontManager {
 
         setCustomFont(getNormalMCFont());
 
-        // TODO: Implement custom font
-        //setCustomFont(new FontRenderer(settings, new ResourceLocation(ArtusMod.MODID, "fonts/customFont.png"), renderEngine, false));
-        //registerFont(getCustomFont());
+        try {
+            setCustomFont(new CustomFont(settings, new ResourceLocation(ArtusMod.MODID, "fonts/Inter.ttf"), renderEngine, false));
+        } catch (Exception e) {
+            e.printStackTrace();
+            setCustomFont(getNormalMCFont()); // Font fallback -> use default minecraft font
+        }
+
+        registerFont(getCustomFont());
     }
 
     public static void registerFont(FontRenderer fontRenderer) {

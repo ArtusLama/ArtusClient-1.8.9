@@ -1,5 +1,6 @@
 package de.artus.artusmod.ui.gui.lib.helpers;
 
+import de.artus.artusmod.ui.gui.lib.font.FontManager;
 import de.artus.artusmod.utils.render.Color;
 import lombok.Getter;
 import lombok.Setter;

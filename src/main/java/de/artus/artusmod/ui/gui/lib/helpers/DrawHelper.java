@@ -16,8 +16,24 @@ import java.util.List;
 public class DrawHelper {
 
 
-    public static void drawRect(int x, int y, int width, int height, Color color) {
-        Gui.drawRect(x, y, x + width, y + height, color.getInt());
+    public static void drawRect(double x, double y, double width, double height, Color color) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
+
+        GlStateManager.color(color.getFRed(), color.getFGreen(), color.getFBlue(), color.getFAlpha());
+
+        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(x, y + height, 0.0).endVertex();
+        worldRenderer.pos(x + width, y + height, 0.0).endVertex();
+        worldRenderer.pos(x + width, y, 0.0).endVertex();
+        worldRenderer.pos(x, y, 0.0).endVertex();
+        tessellator.draw();
+
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
     }
 
 
@@ -25,7 +41,7 @@ public class DrawHelper {
         drawFragmentCircle(x, y, 0, 360, radius, color);
     }
 
-    public static void drawFragmentCircle(int x, int y, int startDeg, int endDeg, int radius, Color color) {
+    public static void drawFragmentCircle(int x, int y, int startDeg, int endDeg, double radius, Color color) {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldRenderer = tessellator.getWorldRenderer();
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
@@ -54,12 +70,12 @@ public class DrawHelper {
         GlStateManager.disableBlend();
     }
 
-    public static void drawRoundedRect(int x, int y, int width, int height, int radius, Color color) {
-        if (radius > width / 2) {
-            radius = width / 2;
+    public static void drawRoundedRect(int x, int y, int width, int height, double radius, Color color) {
+        if (radius > (double) width / 2) {
+            radius = (double) width / 2;
         }
-        if (radius > height / 2) {
-            radius = height / 2;
+        if (radius > (double) height / 2) {
+            radius = (double) height / 2;
         }
 
         // main rect
@@ -72,117 +88,80 @@ public class DrawHelper {
         // top left corner
         drawFragmentCircle(x, y, 270, 360, radius, color);
         // top right corner
-        drawFragmentCircle(x + width - 2 * radius, y, 0, 90, radius, color);
+        drawFragmentCircle((int) (x + width - 2 * radius), y, 0, 90, radius, color);
         // bottom left corner
-        drawFragmentCircle(x, y + height - 2 * radius, 180, 270, radius, color);
+        drawFragmentCircle(x, (int) (y + height - 2 * radius), 180, 270, radius, color);
         // bottom right corner
-        drawFragmentCircle(x + width - 2 * radius, y + height - 2 * radius, 90, 180, radius, color);
+        drawFragmentCircle((int) (x + width - 2 * radius), (int) (y + height - 2 * radius), 90, 180, radius, color);
     }
 
-    public static void drawRectOutline(int x, int y, int width, int height, int thickness, Color color) {
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
-
-        GlStateManager.color(color.getFRed(), color.getFGreen(), color.getFBlue(), color.getFAlpha());
-
-        GL11.glLineWidth(thickness);
-        worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
-        worldRenderer.pos(x, y, 0.0).endVertex();
-        worldRenderer.pos(x + width, y, 0.0).endVertex();
-        worldRenderer.pos(x + width, y + height, 0.0).endVertex();
-        worldRenderer.pos(x, y + height, 0.0).endVertex();
-        worldRenderer.pos(x, y, 0.0).endVertex();
 
 
-        tessellator.draw();
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
+
+    public static void drawRectOutline(int x, int y, int width, int height, double thickness, Color color) {
+        drawRect(x - thickness, y - thickness, width + 2 * thickness, thickness, color);
+        drawRect(x - thickness, y + height, width + 2 * thickness, thickness, color);
+        drawRect(x - thickness, y, thickness, height, color);
+        drawRect(x + width, y, thickness, height, color);
     }
 
     public static void drawCircleOutline(int x, int y, int radius, int thickness, Color color) {
         drawFragmentCircleOutline(x, y, 0, 360, radius, thickness, color);
     }
-    public static void drawFragmentCircleOutline(int x, int y, int startDeg, int endDeg, int radius, int thickness, Color color) {
+    public static void drawFragmentCircleOutline(int x, int y, int startDeg, int endDeg, double radius, double thickness, Color color) {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 
+
         GlStateManager.color(color.getFRed(), color.getFGreen(), color.getFBlue(), color.getFAlpha());
 
-        // Draw an outline of a fragment circle with a given thickness
-        GL11.glLineWidth(thickness);
-
-        worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
-
+        worldRenderer.begin(GL11.GL_TRIANGLE_STRIP, DefaultVertexFormats.POSITION);
         double dots = 360;
         for (double i = endDeg; i >= startDeg; i -= 360 / dots) {
             double angle = Math.toRadians(i - 90); // -90 because of the screen coordinates
-            double xOff = Math.cos(angle) * radius;
-            double yOff = Math.sin(angle) * radius;
-            worldRenderer.pos(x + radius + xOff, y + radius + yOff, 0.0).endVertex();
+            double xOffInner = Math.cos(angle) * radius;
+            double yOffInner = Math.sin(angle) * radius;
+            double xOffOuter = Math.cos(angle) * (radius + thickness);
+            double yOffOuter = Math.sin(angle) * (radius + thickness);
+
+            worldRenderer.pos(x + radius + xOffInner, y + radius + yOffInner, 0.0).endVertex();
+            worldRenderer.pos(x + radius + xOffOuter, y + radius + yOffOuter, 0.0).endVertex();
         }
-
-
-
         tessellator.draw();
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+
+
+        GL11.glDisable(GL11.GL_POLYGON_SMOOTH);
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }
 
 
-    public static void drawRoundedRectOutline(int x, int y, int width, int height, int radius, int thickness, Color color) {
-        if (radius > width / 2) radius = width / 2;
-        if (radius > height / 2) radius = height / 2;
+    public static void drawRoundedRectOutline(int x, int y, int width, int height, double radius, double thickness, Color color) {
+        if (radius > (double) width / 2) radius = (double) width / 2;
+        if (radius > (double) height / 2) radius = (double) height / 2;
 
 
         // top left corner
         drawFragmentCircleOutline(x, y, 270, 360, radius, thickness, color);
         // top right corner
-        drawFragmentCircleOutline(x + width - 2 * radius, y, 0, 90, radius, thickness, color);
+        drawFragmentCircleOutline((int) (x + width - 2 * radius), y, 0, 90, radius, thickness, color);
         // bottom left corner
-        drawFragmentCircleOutline(x, y + height - 2 * radius, 180, 270, radius, thickness, color);
+        drawFragmentCircleOutline(x, (int) (y + height - 2 * radius), 180, 270, radius, thickness, color);
         // bottom right corner
-        drawFragmentCircleOutline(x + width - 2 * radius, y + height - 2 * radius, 90, 180, radius, thickness, color);
+        drawFragmentCircleOutline((int) (x + width - 2 * radius), (int) (y + height - 2 * radius), 90, 180, radius, thickness, color);
 
-
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
-
-        GlStateManager.color(color.getFRed(), color.getFGreen(), color.getFBlue(), color.getFAlpha());
-
-        GL11.glLineWidth(thickness);
-        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
-        // top line
-        worldRenderer.pos(x + radius, y, 0.0).endVertex();
-        worldRenderer.pos(x + width - radius, y, 0.0).endVertex();
-        // bottom line
-        worldRenderer.pos(x + radius, y + height, 0.0).endVertex();
-        worldRenderer.pos(x + width - radius, y + height, 0.0).endVertex();
-        // left line
-        worldRenderer.pos(x, y + radius, 0.0).endVertex();
-        worldRenderer.pos(x, y + height - radius, 0.0).endVertex();
-        // right line
-        worldRenderer.pos(x + width, y + radius, 0.0).endVertex();
-        worldRenderer.pos(x + width, y + height - radius, 0.0).endVertex();
-
-
-        tessellator.draw();
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
+        // top rect
+        drawRect(x + radius, y - thickness, width - 2 * radius, thickness, color);
+        // bottom rect
+        drawRect(x + radius, y + height, width - 2 * radius, thickness, color);
+        // left rect
+        drawRect(x - thickness, y + radius, thickness, height - 2 * radius, color);
+        // right rect
+        drawRect(x + width, y + radius, thickness, height - 2 * radius, color);
     }
 
 

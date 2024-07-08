@@ -27,13 +27,18 @@ public class Theme {
     private Color primaryUnfocused = getPrimary().getWithAlphaPercent(65); // not final
     private Color primaryFocused = getPrimary().getWithAlphaPercent(80); // not final
 
-    private Color background = Color.of("C1C1C1").getWithAlphaPercent(50);
-    private Color backgroundLight = getBackground().getWithAlphaPercent(85);
+    private Color background = Color.of("C1C1C1").getWithAlphaPercent(60);
+    private Color backgroundLight = Color.of("DDDDDD").getWithAlphaPercent(70);
     private Color darkBackground = Color.of("757575").getWithAlphaPercent(25); // not final
     private Color darkBackgroundLight = getDarkBackground().getWithAlphaPercent(50); // not final
 
-    private Color textTransparent = Color.of("FFFFFF").getWithAlphaPercent(85);
+    private Color outlineColor = Color.of("DDDDDD").getWithAlphaPercent(70); // not final
+    private Color outlineColorLight = Color.of("FFFFFF").getWithAlphaPercent(80); // not final
+    private Color darkOutlineColor = Color.of("8B8B8B").getWithAlphaPercent(70); // not final
+    private Color darkOutlineColorLight = Color.of("ABABAB").getWithAlphaPercent(80); // not final
+
     private Color text = Color.of("FFFFFF").getWithAlphaPercent(75); // not final
+    private Color textTransparent = Color.of("FFFFFF").getWithAlphaPercent(85);
     private Color textLight = getText().getWithAlphaPercent(100); // not final
 
     private Color dangerColor = Color.of("FF3C3C"); // not final

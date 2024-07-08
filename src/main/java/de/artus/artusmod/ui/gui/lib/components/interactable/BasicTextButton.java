@@ -1,7 +1,7 @@
 package de.artus.artusmod.ui.gui.lib.components.interactable;
 
 import de.artus.artusmod.ui.gui.lib.helpers.DrawHelper;
-import de.artus.artusmod.ui.gui.lib.helpers.FontManager;
+import de.artus.artusmod.ui.gui.lib.font.FontManager;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +22,7 @@ public class BasicTextButton extends BasicButton {
                 FontManager.getCustomFont(),
                 getText(),
                 getX() + getWidth() / 2,
-                getY() + getHeight() / 2 - FontManager.getCustomFont().FONT_HEIGHT / 2 + 1, // + 1 for better centering (for the eye)
+                getY() + getHeight() / 2 - FontManager.getCustomFont().FONT_HEIGHT / 2,
                 getTheme().getTextTransparent()
         );
     }
